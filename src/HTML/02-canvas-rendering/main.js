@@ -31,6 +31,17 @@ function drawFrame(ts) {
   ctx.strokeRect(100, 100, 250, 200);
 
   //   Circle
+  const circleX = 250;
+  const circleY = 250;
+  const circleRadius = 100;
+  const startAngle = 0;
+  const endAngle = Math.PI * 2;
 
+  ctx.fillStyle = "pink";
+
+  ctx.beginPath();
+  ctx.arc(circleX, circleY, circleRadius, startAngle, endAngle);
+  ctx.closePath();
+  ctx.fill();
   requestAnimationFrame(drawFrame);
 }

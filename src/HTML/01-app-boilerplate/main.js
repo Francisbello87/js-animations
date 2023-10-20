@@ -12,7 +12,6 @@ requestAnimationFrame(drawFrame);
 
 function drawFrame(ts) {
   ts /= 1000;
-
   ctx.moveTo(50, 50);
   ctx.lineTo(300, 300);
   ctx.stroke();

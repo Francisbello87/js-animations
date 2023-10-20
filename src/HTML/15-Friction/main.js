@@ -36,7 +36,7 @@ class Rectangle {
   }
 }
 
-// ------- Initialization -------
+
 const CANVAS_WIDTH = 450;
 const CANVAS_HEIGHT = 450;
 
@@ -76,13 +76,13 @@ function spawnRect() {
   rectangles.push(rectangle);
 }
 
-// ------- Render Loop -------
+
 function drawFrame(ts) {
   ts /= 1000;
   const deltaTimeFrameFromPreviousExecution = ts - oldTime;
   oldTime = ts;
 
-  // clear our canvas contents
+ 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   let i = rectangles.length;

@@ -1,5 +1,5 @@
-const CANVAS_WIDTH = 512;
-const CANVAS_HEIGHT = 512;
+const CANVAS_WIDTH = 500;
+const CANVAS_HEIGHT = 500;
 
 const canvas = document.getElementById("canvas");
 
@@ -20,6 +20,9 @@ let currY = canvas.height / 2;
 let endX = currX;
 let endY = currY;
 
+let velocityX = 0;
+let velocityY = 0;
+
 canvas.addEventListener("mousemove", function (e) {
   endX = e.layerX;
   endY = e.layerY;
@@ -29,18 +32,28 @@ requestAnimationFrame(drawFrame);
 
 function drawFrame(ts) {
   ts /= 1000;
-  const dt = ts - oldTime;
+  const deltaTimeFrameFromPreviousExecution = ts - oldTime;
   oldTime = ts;
 
-  // clear our canvas contents
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const speed = dt * 5;
+  const speed = deltaTimeFrameFromPreviousExecution * 5;
 
-  currX += (endX - currX) * speed;
-  currY += (endY - currY) * speed;
+  const accelerationX = (endX - currX) * speed;
+  const accelerationY = (endY - currY) * speed;
 
-  ctx.fillStyle = "orange";
+  velocityX += accelerationX;
+  velocityY += accelerationY;
+
+  const frictionFactor = 0.915;
+
+  velocityX *= frictionFactor;
+  velocityY *= frictionFactor;
+
+  currX += velocityX;
+  currY += velocityY;
+
+  ctx.fillStyle = "pink";
   ctx.beginPath();
   ctx.arc(currX, currY, 20, 0, Math.PI * 2);
   ctx.fill();

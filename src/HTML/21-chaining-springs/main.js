@@ -1,26 +1,29 @@
 class Circle {
-  constructor({ x, y, radius, color }) {
+  constructor({ x, y, radius, color, gravity }) {
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = color;
-
     this.velocityX = 0;
     this.velocityY = 0;
-    this.frictionFactor = 0.875;
+    this.frictionFactor = 0.4;
+    this.gravity = gravity
   }
 
   springTo(target, deltaTimeFrameFromPreviousExecution) {
+    const speed = deltaTimeFrameFromPreviousExecution * 30
     const accelerationX =
-      (target.x - this.x) * deltaTimeFrameFromPreviousExecution;
+      (target.x - this.x) * speed;
     const accelerationY =
-      (target.y - this.y) * deltaTimeFrameFromPreviousExecution;
+      (target.y - this.y) * speed;
 
     this.velocityX += accelerationX;
     this.velocityY += accelerationY;
 
     this.velocityX *= this.frictionFactor;
     this.velocityY *= this.frictionFactor;
+
+    this.velocityY += this.gravity * deltaTimeFrameFromPreviousExecution
 
     this.x += this.velocityX;
     this.y += this.velocityY;
@@ -59,6 +62,7 @@ for (let i = 0; i < CIRCLES_COUNT; i++) {
     y: canvas.height / 2,
     radius: 10 + Math.random() * 20,
     color: getRandomRGBColor(),
+    gravity: 160
   });
   circles.push(circle);
 }
